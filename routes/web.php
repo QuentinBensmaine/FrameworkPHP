@@ -32,9 +32,15 @@ Route::get('/addSkill', function() {
 })->name('addSkill');
 
 Route::get('/modifSkill', function() {
+
     return view('modifSkill');
 })->name('modifSkill');
 
 Route::get('/suppSkill', function() {
     return view('suppSkill');
 })->name('suppSkill');
+
+Route::get('/select', 'SkillController@show')->name('select');
+Route::delete('/suppSkill', 'SkillController@destroy')->name('suppSkill_done');
+Route::post('/addSkill', 'SkillController@create')->name('addSkill_done');
+Route::post('/modifSkill', 'SkillController@update')->name('modifSkill_done');

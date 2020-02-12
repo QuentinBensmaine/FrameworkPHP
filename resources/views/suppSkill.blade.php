@@ -4,18 +4,22 @@
 <?php
 
 use App\User;
-$skills = DB::table('skills')->join('skill_user','skill_user.skill_id','skills.id')->where('skill_user.user_id',Auth::user()->id)->orderBy('name')->get();
+
+$skills = User::find(Auth::user()->id)->skills;
 
 ?>
 <div>
     <h1>Veuillez sélectionner la compétence à supprimer</h1>
     <div class="dropdown">
-        <form action="selectuser.php" method="POST">
-            <select name="user">
+        <form action="{{ URL::route('suppSkill_done') }}" method="POST">
+            @method('DELETE')
+            @csrf
+            <select name="id">
                 @foreach($skills as $skill)
-                <option name="{{ $skill->id }}" id="{{$skill->id}}">{{ $skill->name }}</option>
+                <option name="{{ $skill->id }}" id="{{$skill->id}}" value="{{$skill->id}}">{{ $skill->name }}</option>
                 @endforeach
             </select>
+            <button type="submit" id="go" class="btn"><span>Supprimer</span></button>
         </form>
     </div>
 </div>

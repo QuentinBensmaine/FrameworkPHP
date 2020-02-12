@@ -10,8 +10,10 @@ $skills = DB::table('skills')->whereNotIn('skills.id', [$a])->orderBy('name')->g
 <div>
     <h1>Veuillez sélectionner la compétence à ajouter</h1>
     <div class="dropdown">
-        <form action="addcomp(user,level)" method="POST">
-            <select name="user">
+        <form action="{{ URL::route('addSkill_done') }}" method="POST">
+        @method('POST')
+            @csrf
+            <select name="skill">
                 @foreach($skills as $skill)
                 <option name="{{ $skill->id }}" id="{{$skill->id}}">{{ $skill->name }}</option>
                 @endforeach
@@ -27,12 +29,4 @@ $skills = DB::table('skills')->whereNotIn('skills.id', [$a])->orderBy('name')->g
         </form>
     </div>
 </div>
-<?php 
-function addcomp($idcomp, $level)
-{
-    DB::table('skill_user')->insert(
-        ['skill_id' => $idcomp, 'user_id' => '{{ Auth::user()->id }}', 'level' => $level]
-    );
-}
-?>
 @endsection

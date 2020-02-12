@@ -10,8 +10,10 @@ $skills = DB::table('skills')->join('skill_user','skill_user.skill_id','skills.i
 <div>
     <h1>Veuillez sélectionner la compétence à modifier</h1>
     <div class="dropdown">
-        <form action="selectuser.php" method="GET">
-            <select name="user">
+        <form action="{{ URL::route('modifSkill_done') }}" method="UPDATE">
+        @method('UPDATE')
+            @csrf
+            <select name="skill">
                 @foreach($skills as $skill)
                 <option name="{{ $skill->id }}" id="{{$skill->id}}">{{ $skill->name }}</option>
                 @endforeach
